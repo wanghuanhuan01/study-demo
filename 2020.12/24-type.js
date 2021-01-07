@@ -2,7 +2,7 @@
  * @Author: huanhuan.wang01@hand-china.com
  * @Date: 2020-12-24 16:45:16
  * @LastEditors: huanhuan.wang01@hand-china.com
- * @LastEditTime: 2020-12-25 09:57:43
+ * @LastEditTime: 2020-12-25 14:40:33
  * @Description: JS判断数据类型的方式
  */
 
@@ -58,7 +58,7 @@ function demo2() {
     return type(obj) === 'function';
   }
   console.log(isFunction(function() {}));
-  // 2.判断数组类型
+  // 2.判断数组类型（这个操作相当于手写Array.isArray()方法）
   function isArray(arr) {
     return type(arr) === 'array';
   }
