@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+ </head>
+ <body style="height: 3000px;">
+   我是页面
+ </body>
+ </html>
+<script>
+  /**
+   * @description: 
+   * @param {*} func 执行的函数
+   * @param {*} wait deng
+   * @param {*} options
+   * @return {*}
+   */  
+  function throttle(func, wait, options) {
+    let args, context;
+    let timeout = null;
+    let previous = 0;
+    if (!options) options = {};
+    const later = () => {
+      previous = options.leading === false ? 0 : Date.now();
+      func.apply(context, args);
+      args = context = timeout = null;
+    };
+
+    return function() {
+      args = arguments;
+      context = this;
+      const now = Date.now();
+      if (!previous && options.leading === false) {
+        previous = now;
+      }
+      const remaining = wait - (now - previous);
+      if (remaining <=0) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        func.apply(context, args);
+        if (!timeout) {
+        args = context = null;
+      }
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+    }
+  }
+  window.addEventListener('scroll', throttle(() => console.log('下拉'), 2000));
+</script>

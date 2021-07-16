@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖</title>
+</head>
+<body>
+  <button onclick="btnClick()">防抖</button>
+</body>
+</html>
+ <script>
+/**
+ * @description: 
+ * @param {*} func 传入的函数
+ * @param {*} wait 定时器
+ * @param {*} immediate 是否立即执行函数
+ * @return {*}
+ */
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    if (immediate) {
+      !timeout && func.apply(context, args);
+    } else {
+      timeout = setTimeout(() => {
+        func.apply(context, args);
+        timeout = null;
+      }, wait);
+    }
+  }
+}
+
+const btnClick = debounce(() => {
+  console.log('点击');
+}, 1000);
+ </script>
